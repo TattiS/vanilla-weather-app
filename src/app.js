@@ -57,7 +57,7 @@ function convertToCelsius(event) {
   event.preventDefault();
   if (isCelsius === false) {
     let temperature = document.querySelector("#temperature").innerHTML;
-    temperature = (temperature - 32) / 1.8;
+    temperature = Math.round((temperature - 32) / 1.8);
     document.querySelector("#temperature").innerHTML = temperature;
     isCelsius = true;
   }
