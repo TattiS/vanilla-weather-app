@@ -42,3 +42,29 @@ function setCurrentPosition(event) {
 currentLocationButton.addEventListener("click", setCurrentPosition);
 search.addEventListener("submit", findByCity);
 currentLocationButton.click();
+
+let isCelsius = true;
+function convertToFahrenheit(event) {
+  event.preventDefault();
+  if (isCelsius === true) {
+    let temperature = document.querySelector("#temperature").innerHTML;
+    temperature = temperature * 1.8 + 32;
+    document.querySelector("#temperature").innerHTML = temperature;
+    isCelsius = false;
+  }
+}
+function convertToCelsius(event) {
+  event.preventDefault();
+  if (isCelsius === false) {
+    let temperature = document.querySelector("#temperature").innerHTML;
+    temperature = (temperature - 32) / 1.8;
+    document.querySelector("#temperature").innerHTML = temperature;
+    isCelsius = true;
+  }
+}
+
+let tempFar = document.querySelector("#fahrenheit-link");
+tempFar.addEventListener("click", convertToFahrenheit);
+
+let tempCel = document.querySelector("#celsius-link");
+tempCel.addEventListener("click", convertToCelsius);
