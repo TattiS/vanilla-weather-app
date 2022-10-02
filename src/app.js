@@ -48,7 +48,7 @@ function convertToFahrenheit(event) {
   event.preventDefault();
   if (isCelsius === true) {
     let temperature = document.querySelector("#temperature").innerHTML;
-    temperature = temperature * 1.8 + 32;
+    temperature = Math.round(temperature * 1.8 + 32);
     document.querySelector("#temperature").innerHTML = temperature;
     isCelsius = false;
   }
