@@ -2,7 +2,7 @@ let apiKey = "c95d60a1e3adbeb286133f1ebebc2579";
 
 let currentLocationButton = document.querySelector("#current-location-button");
 let search = document.querySelector("#search-form");
-
+let days = [""];
 let date = document.querySelector("#date");
 let dateNow = new Date();
 date.innerHTML = dateNow.toDateString();
@@ -10,6 +10,7 @@ date.innerHTML = dateNow.toDateString();
 function findByCity(event) {
   let cityInput = document.querySelector("#city-input").value;
   let city = document.querySelector("#city");
+  let description = document.querySelector("#description");
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let temp = document.querySelector("#temperature");
@@ -17,6 +18,7 @@ function findByCity(event) {
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then((response) => {
     city.innerHTML = response.data.name;
+    description.innerHTML = response.data.description;
     humidity.innerHTML = response.data.main.humidity;
     wind.innerHTML = response.data.wind.speed;
     temp.innerHTML = Math.round(response.data.main.temp);
@@ -27,12 +29,14 @@ function setCurrentPosition(event) {
   event.preventDefault();
   navigator.geolocation.getCurrentPosition((position) => {
     let city = document.querySelector("#city");
+    let description = document.querySelector("#description");
     let humidity = document.querySelector("#humidity");
     let wind = document.querySelector("#wind");
     let temp = document.querySelector("#temperature");
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then((response) => {
       city.innerHTML = response.data.name;
+      description.innerHTML = response.data.description;
       humidity.innerHTML = response.data.main.humidity;
       wind.innerHTML = response.data.wind.speed;
       temp.innerHTML = Math.round(response.data.main.temp);
