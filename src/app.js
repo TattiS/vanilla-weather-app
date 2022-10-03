@@ -27,7 +27,7 @@ function writeDate() {
 }
 
 function findByCity(event) {
-  let cityInput = document.querySelector("#city-input").value;
+  let cityInput = document.querySelector("#city-input");
   let city = document.querySelector("#city");
   let description = document.querySelector("#description");
   let humidity = document.querySelector("#humidity");
@@ -36,7 +36,8 @@ function findByCity(event) {
   let icon = document.querySelector("#icon");
   event.preventDefault();
   writeDate();
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
+  cityInput.value = "";
   axios.get(apiUrl).then((response) => {
     city.innerHTML = response.data.name;
     description.innerHTML = response.data.weather[0].description;
