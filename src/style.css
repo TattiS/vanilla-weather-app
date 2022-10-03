@@ -61,3 +61,13 @@ li {
 .search-form {
   margin-bottom: 20px;
 }
+
+#forecast-row {
+  text-align: center;
+  margin: 20px auto;
+}
+
+.site-footer {
+  font-size: xx-small;
+  text-align: center;
+}
