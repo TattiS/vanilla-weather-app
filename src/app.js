@@ -33,6 +33,7 @@ function findByCity(event) {
   let humidity = document.querySelector("#humidity");
   let wind = document.querySelector("#wind");
   let temp = document.querySelector("#temperature");
+  let icon = document.querySelector("#icon");
   event.preventDefault();
   writeDate();
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`;
@@ -42,6 +43,11 @@ function findByCity(event) {
     humidity.innerHTML = response.data.main.humidity;
     wind.innerHTML = response.data.wind.speed;
     temp.innerHTML = Math.round(response.data.main.temp);
+    icon.setAttribute(
+      "src",
+      `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    );
+    icon.setAttribute("alt", response.data.weather[0].description);
   });
 }
 
@@ -54,6 +60,7 @@ function setCurrentPosition(event) {
     let humidity = document.querySelector("#humidity");
     let wind = document.querySelector("#wind");
     let temp = document.querySelector("#temperature");
+    let icon = document.querySelector("#icon");
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then((response) => {
       city.innerHTML = response.data.name;
@@ -61,6 +68,11 @@ function setCurrentPosition(event) {
       humidity.innerHTML = response.data.main.humidity;
       wind.innerHTML = response.data.wind.speed;
       temp.innerHTML = Math.round(response.data.main.temp);
+      icon.setAttribute(
+        "src",
+        `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+      );
+      icon.setAttribute("alt", response.data.weather[0].description);
     });
   });
 }
