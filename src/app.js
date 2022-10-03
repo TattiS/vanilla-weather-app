@@ -2,10 +2,29 @@ let apiKey = "c95d60a1e3adbeb286133f1ebebc2579";
 
 let currentLocationButton = document.querySelector("#current-location-button");
 let search = document.querySelector("#search-form");
-let days = [""];
-let date = document.querySelector("#date");
-let dateNow = new Date();
-date.innerHTML = dateNow.toDateString();
+let isCelsius = true;
+
+function writeDate() {
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let date = document.querySelector("#date");
+  let dateNow = new Date();
+  let hours = dateNow.getHours();
+  let minutes = dateNow.getMinutes();
+  date.innerHTML =
+    dateNow.toDateString() +
+    " at " +
+    `${hours < 10 ? `0${hours}` : hours}:${
+      minutes < 10 ? `0${minutes}` : minutes
+    }`;
+}
 
 function findByCity(event) {
   let cityInput = document.querySelector("#city-input").value;
@@ -15,6 +34,7 @@ function findByCity(event) {
   let wind = document.querySelector("#wind");
   let temp = document.querySelector("#temperature");
   event.preventDefault();
+  writeDate();
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then((response) => {
     city.innerHTML = response.data.name;
@@ -27,6 +47,7 @@ function findByCity(event) {
 
 function setCurrentPosition(event) {
   event.preventDefault();
+  writeDate();
   navigator.geolocation.getCurrentPosition((position) => {
     let city = document.querySelector("#city");
     let description = document.querySelector("#description");
@@ -43,11 +64,7 @@ function setCurrentPosition(event) {
     });
   });
 }
-currentLocationButton.addEventListener("click", setCurrentPosition);
-search.addEventListener("submit", findByCity);
-currentLocationButton.click();
 
-let isCelsius = true;
 function convertToFahrenheit(event) {
   event.preventDefault();
   if (isCelsius === true) {
@@ -66,6 +83,10 @@ function convertToCelsius(event) {
     isCelsius = true;
   }
 }
+
+currentLocationButton.addEventListener("click", setCurrentPosition);
+search.addEventListener("submit", findByCity);
+currentLocationButton.click();
 
 let tempFar = document.querySelector("#fahrenheit-link");
 tempFar.addEventListener("click", convertToFahrenheit);
