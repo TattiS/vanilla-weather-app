@@ -37,7 +37,6 @@ function formatDay(timestamp) {
 function setForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-  console.log(forecast);
   let forecastHTML = `<div class="row" id="forecast-row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index > 0 && index < 7) {
@@ -84,6 +83,7 @@ function findByCity(event) {
   let wind = document.querySelector("#wind");
   let temp = document.querySelector("#temperature");
   let icon = document.querySelector("#icon");
+
   event.preventDefault();
   writeDate();
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityInput.value}&appid=${apiKey}&units=metric`;
@@ -100,6 +100,10 @@ function findByCity(event) {
     );
     icon.setAttribute("alt", response.data.weather[0].description);
     getForecast(response.data.coord.lat, response.data.coord.lon);
+
+    document.querySelector("#fahrenheit-link").style.color =
+      "var(--search-color)";
+    document.querySelector("#celsius-link").style.color = "var(--active-color)";
   });
 }
 
@@ -114,6 +118,7 @@ function setCurrentPosition(event) {
     let temp = document.querySelector("#temperature");
     let icon = document.querySelector("#icon");
     let apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`;
+
     axios.get(apiUrl).then((response) => {
       city.innerHTML = response.data.name;
       description.innerHTML = response.data.weather[0].description;
@@ -126,12 +131,19 @@ function setCurrentPosition(event) {
       );
       icon.setAttribute("alt", response.data.weather[0].description);
       getForecast(response.data.coord.lat, response.data.coord.lon);
+
+      document.querySelector("#fahrenheit-link").style.color =
+        "var(--search-color)";
+      document.querySelector("#celsius-link").style.color =
+        "var(--active-color)";
     });
   });
 }
 
 function convertToFahrenheit(event) {
   event.preventDefault();
+  event.target.style.color = "var(--active-color)";
+  document.querySelector("#celsius-link").style.color = "var(--search-color)";
   if (isCelsius === true) {
     let temperature = document.querySelector("#temperature").innerHTML;
     temperature = Math.round(temperature * 1.8 + 32);
@@ -141,6 +153,9 @@ function convertToFahrenheit(event) {
 }
 function convertToCelsius(event) {
   event.preventDefault();
+  event.target.style.color = "var(--active-color)";
+  document.querySelector("#fahrenheit-link").style.color =
+    "var(--search-color)";
   if (isCelsius === false) {
     let temperature = document.querySelector("#temperature").innerHTML;
     temperature = Math.round((temperature - 32) / 1.8);

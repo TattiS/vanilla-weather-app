@@ -1,10 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+:root {
+  --frame-color: #7c7c7c;
+  --search-color: #2994b2;
+  --current-color: #ffb400;
+  --error-color: red;
+  --active-color: rgb(33, 33, 33);
+}
 body {
   font-family: "Poppins", sans-serif;
 }
 
 h1 {
-  color: #7c7c7c;
+  color: var(--frame-color);
   font-size: 24px;
   font-weight: 100;
   line-height: 28px;
@@ -24,7 +31,7 @@ ul {
 }
 
 li {
-  color: #7c7c7c;
+  color: var(--frame-color);
   font-size: 16px;
   font-weight: 100;
   height: 19px;
@@ -47,7 +54,7 @@ li {
 }
 
 .temperature {
-  color: rgb(33, 33, 33);
+  color: var(--active-color);
   font-size: 64px;
   font-weight: 400;
   line-height: 1;
@@ -58,8 +65,23 @@ li {
   top: -34px;
 }
 
+.units a {
+  text-decoration: none;
+  color: var(--search-color);
+}
+
 .search-form {
   margin-bottom: 20px;
+}
+
+#btn-search {
+  background-color: var(--search-color);
+  border-color: var(--search-color);
+}
+
+#current-location-button {
+  background-color: var(--current-color);
+  border-color: var(--current-color);
 }
 
 #forecast-row {
