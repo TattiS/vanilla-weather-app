@@ -1,4 +1,5 @@
-let apiKey = "c95d60a1e3adbeb286133f1ebebc2579";
+let apiKey = "6e6ec494746b5229a9f2d526478c924c";
+// "c95d60a1e3adbeb286133f1ebebc2579";
 
 let currentLocationButton = document.querySelector("#current-location-button");
 let search = document.querySelector("#search-form");
